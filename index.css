@@ -17,6 +17,7 @@ body{
     display: inline-grid;
     grid-template-rows: repeat(6, 1fr);
     grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2px;
     border-radius: 0px 0px 20px 20px;
     background-color: rgb(207, 207, 207);
     width: 400px;
