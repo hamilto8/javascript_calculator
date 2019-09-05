@@ -1,39 +1,63 @@
 html, body{
     padding: 0;
-    margin: 0 auto;
+    margin: 0;
 }
 
 body{
-    margin-top: 20px;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    font-family: Arial, Helvetica, sans-serif;
+    min-width: 800px;
+    text-align: center;
+    position: relative;
+}
+
+.navbar{
+    font-family: Gayathri;
+    background-color: rgb(184, 184, 184);
+    width: auto;
+    height: 50px;
+}
+
+.navbar li {
+    color: white;
+    list-style-type: none;
 }
 
 .calculator{
-    display: inline-block;
-    margin: 0 auto;
+    margin-top: 2%;
+    display: inline-grid;
 }
 
 .container{
-    margin: 0 auto;
+    /* ma */
+    padding: 1em;
     display: inline-grid;
     grid-template-rows: repeat(6, 1fr);
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 2px;
-    border-radius: 0px 0px 20px 20px;
+    border-radius: 20px;
     background-color: rgb(207, 207, 207);
-    width: 400px;
-    height: 600px
+    width: 285px;
+    height: auto;
 }
 
 .container > div{
     font-weight: bold;
     border-radius: 10px;
     text-align: center;
-    margin-top: 30px;
-    margin-left: 20px; 
+    margin: .4em;
     padding-top: 10px;
     width: 50px;
     height: 35px;
     background-color: azure;
+    -webkit-touch-callout: none; 
+    -webkit-user-select: none;
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none; 
+            user-select: none; 
 }
 
 .container > div:hover{
@@ -42,11 +66,24 @@ body{
     cursor: default;
 }
 
-.display{
-    border-radius: 10px 10px 0px 0px;
-    /* margin: 0 auto; */
+#display{
+    max-width: 92%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    text-align: left;
+    padding: 10px;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    margin: 0;
+    padding: none;
+    border-radius: 0px;
+    border: .1rem solid black;
     background-color: rgb(203, 240, 255);
-    height: 80px;
+    height: auto;
     width: 100%;
 } 
 
+div .operator{
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 138, 138);
+}

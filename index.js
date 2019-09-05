@@ -1,7 +1,11 @@
 const container = document.querySelector(".container");
-const display = document.querySelector(".display");
+const display = document.querySelector("#display");
 const clear = document.querySelector(".clear");
+const special = document.querySelector(".special");
 const decimal = document.querySelector(".decimal");
+const backspace = document.querySelector(".backspace");
+const power = document.querySelector(".power");
+const message = document.querySelector(".message");
 let num = 4*6;
 
 const one = document.querySelector(".one");
@@ -15,51 +19,106 @@ const eight = document.querySelector(".eight");
 const nine = document.querySelector(".nine");
 const zero = document.querySelector(".zero");
 
+let displayValue = '';
+
 
 clear.addEventListener('click', ()=>{
-
+  displayValue = '';
+  message.textContent = '';
+  display.textContent = displayValue;
 });
 
 decimal.addEventListener('click', ()=>{
-    display.textContent += '.';
+  displayValue += '.'
+    display.textContent = displayValue;
 });
 
 one.addEventListener('click', ()=>{
-    display.textContent += 1;
+  displayValue+= 1;
+    display.textContent = displayValue;
 });
 
 two.addEventListener('click', ()=>{
-    display.textContent += 2;
+  displayValue +=2;
+    display.textContent = displayValue;
 });
 
 three.addEventListener('click', ()=>{
-    display.textContent += 3;
+  displayValue  += 3; 
+    display.textContent = displayValue;
 });
 
 four.addEventListener('click', ()=>{
-    display.textContent += 4;
+  displayValue += 4;
+    display.textContent = displayValue;
 });
 
 five.addEventListener('click', ()=>{
-    display.textContent += 5;
+  displayValue += 5;
+    display.textContent = displayValue;
 });
 
 six.addEventListener('click', ()=>{
-    display.textContent += 6;
+  displayValue += 6;
+    display.textContent = displayValue;
 });
 
 seven.addEventListener('click', ()=>{
-    display.textContent += 7;
+  displayValue += 7;
+    display.textContent = displayValue;
 });
 
 eight.addEventListener('click', ()=>{
-    display.textContent += 8;
+  displayValue += 8;
+    display.textContent = displayValue;
 });
 
 nine.addEventListener('click', ()=>{
-    display.textContent += 9;
+  displayValue += 9;
+    display.textContent = displayValue;
 });
 
 zero.addEventListener('click', ()=>{
-    display.textContent += 0;
+  displayValue += 0;
+    display.textContent = displayValue;
 });
+
+special.addEventListener('click', ()=>{
+    message.textContent = "You have encountered a special message!";
+});
+
+function add(...num){
+    let sum = 0;
+    for(let i = 0; i < num.length; i++){
+      sum += num[i];
+    }
+    return sum;
+  }
+  
+  function subtract(...num){
+    let sum = num[0];
+    for(let i = 1; i < num.length; i++){
+      sum -= num[i];
+    }
+    return sum;
+  }
+  
+  function multiply(...num){
+    let  product = num[0];
+    for (let i = 1; i < num.length; i++){
+      product *= num[i]
+    }
+    return product;
+  }
+  
+  function divide(...num){
+    let product = num[0];
+    for (let i = 1; i < num.length; i++){
+      product /= num[i];
+    }
+    return product;
+  }
+
+  function operate(num1, num2){
+
+  }
