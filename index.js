@@ -6,7 +6,11 @@ const decimal = document.querySelector(".decimal");
 const backspace = document.querySelector(".backspace");
 const power = document.querySelector(".power");
 const message = document.querySelector(".message");
-let num = 4*6;
+const addButton = document.querySelector("div .add");
+const equalsButton = document.querySelector("div .equals");
+const subtractButton = document.querySelector("div .subtract");
+const multiplyButton = document.querySelector("div .multiply");
+const divideButton = document.querySelector("div .divide");
 
 const one = document.querySelector(".one");
 const two = document.querySelector(".two");
@@ -19,8 +23,29 @@ const eight = document.querySelector(".eight");
 const nine = document.querySelector(".nine");
 const zero = document.querySelector(".zero");
 
+let num = 4*6;
+
 let displayValue = '';
 
+addButton.addEventListener('click', ()=>{
+  displayValue += '+';
+  display.textContent = displayValue;
+});
+
+subtractButton.addEventListener('click',()=>{
+  displayValue += '-'
+  display.textContent = displayValue;
+});
+
+multiplyButton.addEventListener('click', ()=>{
+  displayValue += 'x';
+  display.textContent = displayValue;
+});
+
+divideButton.addEventListener('click', ()=>{
+  displayValue += "÷";
+  display.textContent = displayValue;
+});
 
 clear.addEventListener('click', ()=>{
   displayValue = '';
@@ -34,52 +59,52 @@ decimal.addEventListener('click', ()=>{
 });
 
 one.addEventListener('click', ()=>{
-  displayValue+= 1;
+  displayValue+= '1';
     display.textContent = displayValue;
 });
 
 two.addEventListener('click', ()=>{
-  displayValue +=2;
+  displayValue += '2';
     display.textContent = displayValue;
 });
 
 three.addEventListener('click', ()=>{
-  displayValue  += 3; 
+  displayValue  += '3'; 
     display.textContent = displayValue;
 });
 
 four.addEventListener('click', ()=>{
-  displayValue += 4;
+  displayValue += '4';
     display.textContent = displayValue;
 });
 
 five.addEventListener('click', ()=>{
-  displayValue += 5;
+  displayValue += '5';
     display.textContent = displayValue;
 });
 
 six.addEventListener('click', ()=>{
-  displayValue += 6;
+  displayValue += '6';
     display.textContent = displayValue;
 });
 
 seven.addEventListener('click', ()=>{
-  displayValue += 7;
+  displayValue += '7';
     display.textContent = displayValue;
 });
 
 eight.addEventListener('click', ()=>{
-  displayValue += 8;
+  displayValue += '8';
     display.textContent = displayValue;
 });
 
 nine.addEventListener('click', ()=>{
-  displayValue += 9;
+  displayValue += '9';
     display.textContent = displayValue;
 });
 
 zero.addEventListener('click', ()=>{
-  displayValue += 0;
+  displayValue += '0';
     display.textContent = displayValue;
 });
 
