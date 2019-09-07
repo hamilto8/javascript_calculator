@@ -25,91 +25,140 @@ const zero = document.querySelector(".zero");
 
 let num = 4*6;
 
-let displayValue = '';
+let displayValue = [];
+let output = 0;
 
 addButton.addEventListener('click', ()=>{
-  displayValue += '+';
-  display.textContent = displayValue;
+  displayValue.push('+');
+  display.textContent = displayValue.join("");
 });
 
 subtractButton.addEventListener('click',()=>{
-  displayValue += '-'
-  display.textContent = displayValue;
+  displayValue.push('-');
+  display.textContent = displayValue.join("");
 });
 
 multiplyButton.addEventListener('click', ()=>{
-  displayValue += 'x';
-  display.textContent = displayValue;
+  displayValue.push('x');
+  display.textContent = displayValue.join("");
 });
 
 divideButton.addEventListener('click', ()=>{
-  displayValue += "÷";
-  display.textContent = displayValue;
+  displayValue.push("÷");
+  display.textContent = displayValue.join("");
 });
 
 clear.addEventListener('click', ()=>{
-  displayValue = '';
+  displayValue = [];
   message.textContent = '';
-  display.textContent = displayValue;
+  display.textContent = displayValue.join("");
 });
 
 decimal.addEventListener('click', ()=>{
-  displayValue += '.'
-    display.textContent = displayValue;
+  displayValue.push('.');
+    display.textContent = displayValue.join("");
 });
 
 one.addEventListener('click', ()=>{
-  displayValue+= '1';
-    display.textContent = displayValue;
+  if(parseInt(displayValue[displayValue.length-1])){
+    displayValue[displayValue.length-1] += '1'
+  } else {
+    displayValue.push('1');
+  }
+    display.textContent = displayValue.join("");
 });
 
 two.addEventListener('click', ()=>{
-  displayValue += '2';
-    display.textContent = displayValue;
+  if(parseInt(displayValue[displayValue.length-1])){
+    displayValue[displayValue.length-1] += '2'
+  } else {
+    displayValue.push('2');
+  }
+    display.textContent = displayValue.join("");
 });
 
 three.addEventListener('click', ()=>{
-  displayValue  += '3'; 
-    display.textContent = displayValue;
+  if(parseInt(displayValue[displayValue.length-1])){
+    displayValue[displayValue.length-1] += '3'
+  } else {
+    displayValue.push('3');
+  }
+    display.textContent = displayValue.join("");
 });
 
 four.addEventListener('click', ()=>{
-  displayValue += '4';
-    display.textContent = displayValue;
+  if(parseInt(displayValue[displayValue.length-1])){
+    displayValue[displayValue.length-1] += '4'
+  } else {
+    displayValue.push('4');
+  }
+    display.textContent = displayValue.join("");
 });
 
 five.addEventListener('click', ()=>{
-  displayValue += '5';
-    display.textContent = displayValue;
+  if(parseInt(displayValue[displayValue.length-1])){
+    displayValue[displayValue.length-1] += '5'
+  } else {
+    displayValue.push('5');
+  }
+    display.textContent = displayValue.join("");
 });
 
 six.addEventListener('click', ()=>{
-  displayValue += '6';
-    display.textContent = displayValue;
+  if(parseInt(displayValue[displayValue.length-1])){
+    displayValue[displayValue.length-1] += '6'
+  } else {
+    displayValue.push('6');
+  }
+    display.textContent = displayValue.join("");
 });
 
 seven.addEventListener('click', ()=>{
-  displayValue += '7';
-    display.textContent = displayValue;
+  if(parseInt(displayValue[displayValue.length-1])){
+    displayValue[displayValue.length-1] += '7'
+  } else {
+    displayValue.push('7');
+  }
+    display.textContent = displayValue.join("");
 });
 
 eight.addEventListener('click', ()=>{
-  displayValue += '8';
-    display.textContent = displayValue;
+  if(parseInt(displayValue[displayValue.length-1])){
+    displayValue[displayValue.length-1] += '8'
+  } else {
+    displayValue.push('8');
+  }
+    display.textContent = displayValue.join("");
 });
 
 nine.addEventListener('click', ()=>{
-  displayValue += '9';
-    display.textContent = displayValue;
+  if(parseInt(displayValue[displayValue.length-1])){
+    displayValue[displayValue.length-1] += '9'
+  } else {
+    displayValue.push('9');
+  }
+    display.textContent = displayValue.join("");
 });
 
 zero.addEventListener('click', ()=>{
-  displayValue += '0';
-    display.textContent = displayValue;
+  if(parseInt(displayValue[displayValue.length-1])){
+    displayValue[displayValue.length-1] += '0'
+  } else {
+    displayValue.push('0');
+  }
+    display.textContent = displayValue.join("");
 });
 
 special.addEventListener('click', ()=>{
     message.textContent = "You have encountered a special message!";
+});
+
+equalsButton.addEventListener('click',()=>{
+  for(let i = 0; i < displayValue.length-1; i++){
+    if(parseInt(displayValue[0])){
+
+    }
+  }
 });
 
 function add(...num){
@@ -144,6 +193,10 @@ function add(...num){
     return product;
   }
 
-  function operate(num1, num2){
-
+  function operate(num1, num2, operator){
+    if(operator === '+'){
+      output = (num1 + num2);
+      displayValue = `${output}`;
+      display.textContent = displayValue;
+    }
   }
