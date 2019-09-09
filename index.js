@@ -24,27 +24,49 @@ const nine = document.querySelector(".nine");
 const zero = document.querySelector(".zero");
 
 let num = 4*6;
+let specialChars = '*+-÷';
 
 let displayValue = [];
 let output = 0;
 
 addButton.addEventListener('click', ()=>{
-  displayValue.push('+');
+  let lastVal = displayValue[displayValue.length-1];
+  if(Math.abs(parseFloat(lastVal)) >= 0){
+    displayValue.push('+');
+  } else {
+    displayValue[displayValue.length-1] = "+";
+  }
   display.textContent = displayValue.join("");
 });
 
 subtractButton.addEventListener('click',()=>{
-  displayValue.push('-');
+  let lastVal = displayValue[displayValue.length-1];
+  if(Math.abs(parseFloat(lastVal)) >= 0){
+    displayValue.push('-');
+  } else {
+    displayValue[displayValue.length-1] = "-";
+  }
   display.textContent = displayValue.join("");
 });
 
 multiplyButton.addEventListener('click', ()=>{
-  displayValue.push('x');
+  let lastVal = displayValue[displayValue.length-1];
+  if(Math.abs(parseFloat(lastVal)) >= 0){
+    displayValue.push('*');
+  } else {
+    displayValue[displayValue.length-1] = "*";
+  }
   display.textContent = displayValue.join("");
 });
 
 divideButton.addEventListener('click', ()=>{
-  displayValue.push("÷");
+  let lastVal = displayValue[displayValue.length-1];
+  if(Math.abs(parseFloat(lastVal)) >= 0){
+    // division symbol: ÷
+    displayValue.push('/');
+  } else {
+    displayValue[displayValue.length-1] = "/";
+  }
   display.textContent = displayValue.join("");
 });
 
@@ -54,13 +76,33 @@ clear.addEventListener('click', ()=>{
   display.textContent = displayValue.join("");
 });
 
+function checkChars(str){
+  for(let i = 0; i < specialChars.length; i++){
+    if(str.includes(specialChars[i])){
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
 decimal.addEventListener('click', ()=>{
-  displayValue.push('.');
+  let lastVal = displayValue[displayValue.length-1];
+  if(lastVal && !checkChars(lastVal)){
+    if(parseFloat(lastVal)){
+      displayValue[displayValue.length-1] += '.';
+    } else {
+      displayValue.push("0.");
+    }
+  } else if (!displayValue[displayValue.length-1]){
+    displayValue.push('0.')
+  }
     display.textContent = displayValue.join("");
 });
 
 one.addEventListener('click', ()=>{
-  if(parseInt(displayValue[displayValue.length-1])){
+  let lastVal = displayValue[displayValue.length-1];
+  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
     displayValue[displayValue.length-1] += '1'
   } else {
     displayValue.push('1');
@@ -69,7 +111,8 @@ one.addEventListener('click', ()=>{
 });
 
 two.addEventListener('click', ()=>{
-  if(parseInt(displayValue[displayValue.length-1])){
+  let lastVal = displayValue[displayValue.length-1];
+  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
     displayValue[displayValue.length-1] += '2'
   } else {
     displayValue.push('2');
@@ -78,7 +121,8 @@ two.addEventListener('click', ()=>{
 });
 
 three.addEventListener('click', ()=>{
-  if(parseInt(displayValue[displayValue.length-1])){
+  let lastVal = displayValue[displayValue.length-1];
+  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
     displayValue[displayValue.length-1] += '3'
   } else {
     displayValue.push('3');
@@ -87,7 +131,8 @@ three.addEventListener('click', ()=>{
 });
 
 four.addEventListener('click', ()=>{
-  if(parseInt(displayValue[displayValue.length-1])){
+  let lastVal = displayValue[displayValue.length-1];
+  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
     displayValue[displayValue.length-1] += '4'
   } else {
     displayValue.push('4');
@@ -96,7 +141,8 @@ four.addEventListener('click', ()=>{
 });
 
 five.addEventListener('click', ()=>{
-  if(parseInt(displayValue[displayValue.length-1])){
+  let lastVal = displayValue[displayValue.length-1];
+  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
     displayValue[displayValue.length-1] += '5'
   } else {
     displayValue.push('5');
@@ -105,7 +151,8 @@ five.addEventListener('click', ()=>{
 });
 
 six.addEventListener('click', ()=>{
-  if(parseInt(displayValue[displayValue.length-1])){
+  let lastVal = displayValue[displayValue.length-1];
+  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
     displayValue[displayValue.length-1] += '6'
   } else {
     displayValue.push('6');
@@ -114,7 +161,8 @@ six.addEventListener('click', ()=>{
 });
 
 seven.addEventListener('click', ()=>{
-  if(parseInt(displayValue[displayValue.length-1])){
+  let lastVal = displayValue[displayValue.length-1];
+  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
     displayValue[displayValue.length-1] += '7'
   } else {
     displayValue.push('7');
@@ -123,7 +171,8 @@ seven.addEventListener('click', ()=>{
 });
 
 eight.addEventListener('click', ()=>{
-  if(parseInt(displayValue[displayValue.length-1])){
+  let lastVal = displayValue[displayValue.length-1];
+  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
     displayValue[displayValue.length-1] += '8'
   } else {
     displayValue.push('8');
@@ -132,7 +181,8 @@ eight.addEventListener('click', ()=>{
 });
 
 nine.addEventListener('click', ()=>{
-  if(parseInt(displayValue[displayValue.length-1])){
+  let lastVal = displayValue[displayValue.length-1];
+  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
     displayValue[displayValue.length-1] += '9'
   } else {
     displayValue.push('9');
@@ -141,7 +191,8 @@ nine.addEventListener('click', ()=>{
 });
 
 zero.addEventListener('click', ()=>{
-  if(parseInt(displayValue[displayValue.length-1])){
+  let lastVal = displayValue[displayValue.length-1];
+  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
     displayValue[displayValue.length-1] += '0'
   } else {
     displayValue.push('0');
@@ -154,12 +205,27 @@ special.addEventListener('click', ()=>{
 });
 
 equalsButton.addEventListener('click',()=>{
-  for(let i = 0; i < displayValue.length-1; i++){
-    if(parseInt(displayValue[0])){
+  // for(let i = 0; i < displayValue.length-1; i++){
+  //   if(parseFloat(displayValue[0])){
 
-    }
-  }
+  //   }
+  // }
+  output = eval(displayValue.join(""));
+  displayValue = [output];
+  display.textContent = displayValue.join("");
 });
+
+backspace.addEventListener("click", ()=>{
+  let lastVal = displayValue[displayValue.length-1];
+  if(lastVal && lastVal.length > 1){
+    let newVal = lastVal.slice(0, -1);
+    displayValue.pop();
+    displayValue.push(newVal);
+  } else {
+    displayValue.pop();
+  }
+  display.textContent = displayValue.join("");
+})
 
 function add(...num){
     let sum = 0;
