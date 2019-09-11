@@ -88,29 +88,24 @@ function clearInput(){
 }
 
 function checkChars(str){
+  let state = false;
   for(let i = 0; i < specialChars.length; i++){
     if(str.includes(specialChars[i])){
-      return true;
-    } else {
-      return false;
+      state = true;
     }
   }
+  return state;
 }
 
 decimal.addEventListener('click', addDecimal);
 
 function addDecimal(){
-  let lastVal = displayValue[displayValue.length-1];
-  if(lastVal && !checkChars(lastVal)){
-    if(parseFloat(lastVal)){
-      displayValue[displayValue.length-1] += '.';
-    } else {
-      displayValue.push("0.");
-    }
-  } else if (!displayValue[displayValue.length-1]){
-    displayValue.push('0.');
+  if(checkChars(displayValue[displayValue.length-1])){
+    displayValue.push("0.");
+  } else if (!displayValue[displayValue.length-1].includes(".")) {
+    displayValue[displayValue.length-1] += '.';
   }
-  
+
   message.textContent = '';
   display.textContent = displayValue.join("");
 }
@@ -119,8 +114,9 @@ one.addEventListener('click', addOne);
 
 function addOne(){
   let lastVal = displayValue[displayValue.length-1];
-  if(displayValue.length === 1 && displayValue[0] === '0'){
-    displayValue[0] = 1;
+
+  if(displayValue[displayValue.length-1] === '0'){
+    displayValue[displayValue.length-1] = '1';
   } else {
     if(typeof lastVal === 'number' || (lastVal !== undefined && lastVal.includes("."))){
       displayValue[displayValue.length-1] += '1';
@@ -138,8 +134,8 @@ two.addEventListener('click', addTwo);
 function addTwo(){
   let lastVal = displayValue[displayValue.length-1];
 
-  if(displayValue.length === 1 && displayValue[0] === '0'){
-    displayValue[0] = 2;
+  if(displayValue[displayValue.length-1] === '0'){
+    displayValue[displayValue.length-1] = '2';
   } else {
     if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
       displayValue[displayValue.length-1] += '2';
@@ -156,8 +152,9 @@ three.addEventListener('click', addThree);
 
 function addThree(){
   let lastVal = displayValue[displayValue.length-1];
-  if(displayValue.length === 1 && displayValue[0] === '0'){
-    displayValue[0] = 3;
+
+  if(displayValue[displayValue.length-1] === '0'){
+    displayValue[displayValue.length-1] = '3';
   } else {
     if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
       displayValue[displayValue.length-1] += '3';
@@ -174,8 +171,9 @@ four.addEventListener('click', addFour);
 
 function addFour(){
   let lastVal = displayValue[displayValue.length-1];
-  if(displayValue.length === 1 && displayValue[0] === '0'){
-    displayValue[0] = 4;
+
+  if(displayValue[displayValue.length-1] === '0'){
+    displayValue[displayValue.length-1] = '4';
   } else {
     if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
       displayValue[displayValue.length-1] += '4';
@@ -192,8 +190,9 @@ five.addEventListener('click', addFive);
 
 function addFive(){
   let lastVal = displayValue[displayValue.length-1];
-  if(displayValue.length === 1 && displayValue[0] === '0'){
-    displayValue[0] = 5;
+
+  if(displayValue[displayValue.length-1] === '0'){
+    displayValue[displayValue.length-1] = '5';
   } else {
     if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
       displayValue[displayValue.length-1] += '5';
@@ -210,8 +209,9 @@ six.addEventListener('click', addSix);
 
 function addSix(){
   let lastVal = displayValue[displayValue.length-1];
-  if(displayValue.length === 1 && displayValue[0] === '0'){
-    displayValue[0] = 6;
+
+  if(displayValue[displayValue.length-1] === '0'){
+    displayValue[displayValue.length-1] = '6';
   } else {
     if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
       displayValue[displayValue.length-1] += '6';
@@ -229,8 +229,8 @@ seven.addEventListener('click', addSeven);
 function addSeven(){
   let lastVal = displayValue[displayValue.length-1];
 
-  if(displayValue.length === 1 && displayValue[0] === '0'){
-    displayValue[0] = 7;
+  if(displayValue[displayValue.length-1] === '0'){
+    displayValue[displayValue.length-1] = '7';
   } else {
     if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
       displayValue[displayValue.length-1] += '7';
@@ -247,8 +247,8 @@ eight.addEventListener('click', addEight);
 function addEight(){
   let lastVal = displayValue[displayValue.length-1];
 
-  if(displayValue.length === 1 && displayValue[0] === '0'){
-    displayValue[0] = 8;
+  if(displayValue[displayValue.length-1] === '0'){
+    displayValue[displayValue.length-1] = '8';
   } else {
     if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
       displayValue[displayValue.length-1] += '8';
@@ -266,8 +266,8 @@ nine.addEventListener('click', addNine);
 function addNine(){
   let lastVal = displayValue[displayValue.length-1];
 
-  if(displayValue.length === 1 && displayValue[0] === '0'){
-    displayValue[0] = 9;
+  if(displayValue[displayValue.length-1] === '0'){
+    displayValue[displayValue.length-1] = '9';
   } else {
     if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
       displayValue[displayValue.length-1] += '9';
@@ -284,7 +284,7 @@ zero.addEventListener('click', addZero);
 
 function addZero(){
   let lastVal = displayValue[displayValue.length-1];
-  if(displayValue.length === 1 && displayValue[0] === '0'){
+  if(displayValue[displayValue.length-1] === '0'){
     message.textContent = 'You must really love zeros.';
   } else {
     if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
@@ -306,7 +306,7 @@ equalsButton.addEventListener('click',()=>{
   if(displayValue.length >= 3){
     operate(vals);
   } else {
-    message.textContent = 'Incorrect Input. Reconsider Your Mathematical Manners, Sir!';
+    message.textContent = 'Incorrect Input. Reconsider Your Mathematical Manners, Sir.';
   }
 });
 
@@ -382,7 +382,6 @@ function add(num1, num2){
   }
 
   window.addEventListener('keyup',(e)=>{
-
     switch(e.keyCode){
       case 49:
         addOne();
