@@ -23,13 +23,15 @@ const eight = document.querySelector(".eight");
 const nine = document.querySelector(".nine");
 const zero = document.querySelector(".zero");
 
-let num = 4*6;
+let num = 24;
 let specialChars = '*+-÷';
-
 let displayValue = [];
+let subOps = [];
 let output = 0;
 
-addButton.addEventListener('click', ()=>{
+addButton.addEventListener('click', addAdditionSymbol);
+
+function addAdditionSymbol(){
   let lastVal = displayValue[displayValue.length-1];
   if(Math.abs(parseFloat(lastVal)) >= 0){
     displayValue.push('+');
@@ -37,9 +39,11 @@ addButton.addEventListener('click', ()=>{
     displayValue[displayValue.length-1] = "+";
   }
   display.textContent = displayValue.join("");
-});
+}
 
-subtractButton.addEventListener('click',()=>{
+subtractButton.addEventListener('click', addSubtractionSymbol);
+
+function addSubtractionSymbol(){
   let lastVal = displayValue[displayValue.length-1];
   if(Math.abs(parseFloat(lastVal)) >= 0){
     displayValue.push('-');
@@ -47,9 +51,11 @@ subtractButton.addEventListener('click',()=>{
     displayValue[displayValue.length-1] = "-";
   }
   display.textContent = displayValue.join("");
-});
+}
 
-multiplyButton.addEventListener('click', ()=>{
+multiplyButton.addEventListener('click', addMultiplicationSymbol);
+
+function addMultiplicationSymbol(){
   let lastVal = displayValue[displayValue.length-1];
   if(Math.abs(parseFloat(lastVal)) >= 0){
     displayValue.push('*');
@@ -57,9 +63,11 @@ multiplyButton.addEventListener('click', ()=>{
     displayValue[displayValue.length-1] = "*";
   }
   display.textContent = displayValue.join("");
-});
+}
 
-divideButton.addEventListener('click', ()=>{
+divideButton.addEventListener('click', addDivisonSymbol);
+
+function addDivisonSymbol(){
   let lastVal = displayValue[displayValue.length-1];
   if(Math.abs(parseFloat(lastVal)) >= 0){
     // division symbol: ÷
@@ -68,13 +76,16 @@ divideButton.addEventListener('click', ()=>{
     displayValue[displayValue.length-1] = "/";
   }
   display.textContent = displayValue.join("");
-});
+}
 
-clear.addEventListener('click', ()=>{
+clear.addEventListener('click', clearInput);
+
+function clearInput(){
   displayValue = [];
+  output = 0;
   message.textContent = '';
   display.textContent = displayValue.join("");
-});
+}
 
 function checkChars(str){
   for(let i = 0; i < specialChars.length; i++){
@@ -86,7 +97,9 @@ function checkChars(str){
   }
 }
 
-decimal.addEventListener('click', ()=>{
+decimal.addEventListener('click', addDecimal);
+
+function addDecimal(){
   let lastVal = displayValue[displayValue.length-1];
   if(lastVal && !checkChars(lastVal)){
     if(parseFloat(lastVal)){
@@ -95,127 +108,211 @@ decimal.addEventListener('click', ()=>{
       displayValue.push("0.");
     }
   } else if (!displayValue[displayValue.length-1]){
-    displayValue.push('0.')
+    displayValue.push('0.');
   }
-    display.textContent = displayValue.join("");
-});
+  
+  message.textContent = '';
+  display.textContent = displayValue.join("");
+}
 
-one.addEventListener('click', ()=>{
-  let lastVal = displayValue[displayValue.length-1];
-  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
-    displayValue[displayValue.length-1] += '1'
-  } else {
-    displayValue.push('1');
-  }
-    display.textContent = displayValue.join("");
-});
+one.addEventListener('click', addOne);
 
-two.addEventListener('click', ()=>{
+function addOne(){
   let lastVal = displayValue[displayValue.length-1];
-  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
-    displayValue[displayValue.length-1] += '2'
+  if(displayValue.length === 1 && displayValue[0] === '0'){
+    displayValue[0] = 1;
   } else {
-    displayValue.push('2');
+    if(typeof lastVal === 'number' || (lastVal !== undefined && lastVal.includes("."))){
+      displayValue[displayValue.length-1] += '1';
+    } else {
+      displayValue.push('1');
+    }
   }
-    display.textContent = displayValue.join("");
-});
+  
+  message.textContent = '';
+  display.textContent = displayValue.join("");
+}
 
-three.addEventListener('click', ()=>{
-  let lastVal = displayValue[displayValue.length-1];
-  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
-    displayValue[displayValue.length-1] += '3'
-  } else {
-    displayValue.push('3');
-  }
-    display.textContent = displayValue.join("");
-});
+two.addEventListener('click', addTwo);
 
-four.addEventListener('click', ()=>{
+function addTwo(){
   let lastVal = displayValue[displayValue.length-1];
-  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
-    displayValue[displayValue.length-1] += '4'
-  } else {
-    displayValue.push('4');
-  }
-    display.textContent = displayValue.join("");
-});
 
-five.addEventListener('click', ()=>{
-  let lastVal = displayValue[displayValue.length-1];
-  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
-    displayValue[displayValue.length-1] += '5'
+  if(displayValue.length === 1 && displayValue[0] === '0'){
+    displayValue[0] = 2;
   } else {
-    displayValue.push('5');
+    if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
+      displayValue[displayValue.length-1] += '2';
+    } else {
+      displayValue.push('2');
+    }
   }
-    display.textContent = displayValue.join("");
-});
+  
+  message.textContent = '';
+  display.textContent = displayValue.join("");
+}
 
-six.addEventListener('click', ()=>{
-  let lastVal = displayValue[displayValue.length-1];
-  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
-    displayValue[displayValue.length-1] += '6'
-  } else {
-    displayValue.push('6');
-  }
-    display.textContent = displayValue.join("");
-});
+three.addEventListener('click', addThree);
 
-seven.addEventListener('click', ()=>{
+function addThree(){
   let lastVal = displayValue[displayValue.length-1];
-  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
-    displayValue[displayValue.length-1] += '7'
+  if(displayValue.length === 1 && displayValue[0] === '0'){
+    displayValue[0] = 3;
   } else {
-    displayValue.push('7');
+    if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
+      displayValue[displayValue.length-1] += '3';
+    } else {
+      displayValue.push('3');
+    }
   }
-    display.textContent = displayValue.join("");
-});
+  
+  message.textContent = '';
+  display.textContent = displayValue.join("");
+}
 
-eight.addEventListener('click', ()=>{
-  let lastVal = displayValue[displayValue.length-1];
-  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
-    displayValue[displayValue.length-1] += '8'
-  } else {
-    displayValue.push('8');
-  }
-    display.textContent = displayValue.join("");
-});
+four.addEventListener('click', addFour);
 
-nine.addEventListener('click', ()=>{
+function addFour(){
   let lastVal = displayValue[displayValue.length-1];
-  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
-    displayValue[displayValue.length-1] += '9'
+  if(displayValue.length === 1 && displayValue[0] === '0'){
+    displayValue[0] = 4;
   } else {
-    displayValue.push('9');
+    if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
+      displayValue[displayValue.length-1] += '4';
+    } else {
+      displayValue.push('4');
+    }
   }
-    display.textContent = displayValue.join("");
-});
+  
+  message.textContent = '';
+  display.textContent = displayValue.join("");
+}
 
-zero.addEventListener('click', ()=>{
+five.addEventListener('click', addFive);
+
+function addFive(){
   let lastVal = displayValue[displayValue.length-1];
-  if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
-    displayValue[displayValue.length-1] += '0'
+  if(displayValue.length === 1 && displayValue[0] === '0'){
+    displayValue[0] = 5;
   } else {
-    displayValue.push('0');
+    if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
+      displayValue[displayValue.length-1] += '5';
+    } else {
+      displayValue.push('5');
+    }
+  }
+
+  message.textContent = '';
+  display.textContent = displayValue.join("");
+}
+
+six.addEventListener('click', addSix);
+
+function addSix(){
+  let lastVal = displayValue[displayValue.length-1];
+  if(displayValue.length === 1 && displayValue[0] === '0'){
+    displayValue[0] = 6;
+  } else {
+    if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
+      displayValue[displayValue.length-1] += '6';
+    } else {
+      displayValue.push('6');
+    }
+  }
+
+  message.textContent = '';
+  display.textContent = displayValue.join("");
+}
+
+seven.addEventListener('click', addSeven);
+
+function addSeven(){
+  let lastVal = displayValue[displayValue.length-1];
+
+  if(displayValue.length === 1 && displayValue[0] === '0'){
+    displayValue[0] = 7;
+  } else {
+    if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
+      displayValue[displayValue.length-1] += '7';
+    } else {
+      displayValue.push('7');
+    }
+  }
+  message.textContent = '';
+  display.textContent = displayValue.join("");
+}
+
+eight.addEventListener('click', addEight);
+
+function addEight(){
+  let lastVal = displayValue[displayValue.length-1];
+
+  if(displayValue.length === 1 && displayValue[0] === '0'){
+    displayValue[0] = 8;
+  } else {
+    if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
+      displayValue[displayValue.length-1] += '8';
+    } else {
+      displayValue.push('8');
+    }
+  }
+  
+  message.textContent = '';
+  display.textContent = displayValue.join("");
+}
+
+nine.addEventListener('click', addNine);
+
+function addNine(){
+  let lastVal = displayValue[displayValue.length-1];
+
+  if(displayValue.length === 1 && displayValue[0] === '0'){
+    displayValue[0] = 9;
+  } else {
+    if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
+      displayValue[displayValue.length-1] += '9';
+    } else {
+      displayValue.push('9');
+    }
+  }
+  
+  message.textContent = '';
+  display.textContent = displayValue.join("");
+}
+
+zero.addEventListener('click', addZero);
+
+function addZero(){
+  let lastVal = displayValue[displayValue.length-1];
+  if(displayValue.length === 1 && displayValue[0] === '0'){
+    message.textContent = 'You must really love zeros.';
+  } else {
+    if(parseFloat(lastVal) || (lastVal !== undefined && lastVal.includes("."))){
+      displayValue[displayValue.length-1] += '0';
+    } else {
+      displayValue.push('0');
+    }
   }
     display.textContent = displayValue.join("");
-});
+}
 
 special.addEventListener('click', ()=>{
     message.textContent = "You have encountered a special message!";
 });
 
 equalsButton.addEventListener('click',()=>{
-  // for(let i = 0; i < displayValue.length-1; i++){
-  //   if(parseFloat(displayValue[0])){
-
-  //   }
-  // }
-  output = eval(displayValue.join(""));
-  displayValue = [output];
-  display.textContent = displayValue.join("");
+  let lastVal = displayValue[displayValue.length-1];
+  const vals = [...displayValue];
+  if(displayValue.length >= 3){
+    operate(vals);
+  } else {
+    message.textContent = 'Incorrect Input. Reconsider Your Mathematical Manners, Sir!';
+  }
 });
 
-backspace.addEventListener("click", ()=>{
+backspace.addEventListener("click", backspaceFunction);
+
+function backspaceFunction(){
   let lastVal = displayValue[displayValue.length-1];
   if(lastVal && lastVal.length > 1){
     let newVal = lastVal.slice(0, -1);
@@ -225,44 +322,131 @@ backspace.addEventListener("click", ()=>{
     displayValue.pop();
   }
   display.textContent = displayValue.join("");
-})
+}
 
-function add(...num){
-    let sum = 0;
-    for(let i = 0; i < num.length; i++){
-      sum += num[i];
+function divideByZero(){
+  for(let i = 0; i < displayValue.length-1; i++){
+    if(displayValue[i] === '/' && displayValue[i+1] === '0'){
+      return true;
     }
+  }
+  return false;
+}
+
+function add(num1, num2){
+    let sum = num1+num2;
     return sum;
   }
   
-  function subtract(...num){
-    let sum = num[0];
-    for(let i = 1; i < num.length; i++){
-      sum -= num[i];
-    }
+  function subtract(num1, num2){
+    let sum = parseFloat(num1) - parseFloat(num2);
     return sum;
   }
   
-  function multiply(...num){
-    let  product = num[0];
-    for (let i = 1; i < num.length; i++){
-      product *= num[i]
-    }
+  function multiply(num1, num2){
+    let  product = num1*num2;
     return product;
   }
   
-  function divide(...num){
-    let product = num[0];
-    for (let i = 1; i < num.length; i++){
-      product /= num[i];
-    }
+  function divide(num1, num2){
+    let product = num1 / num2;
     return product;
   }
 
-  function operate(num1, num2, operator){
-    if(operator === '+'){
-      output = (num1 + num2);
-      displayValue = `${output}`;
-      display.textContent = displayValue;
+  function operate(){
+    if(displayValue.length > 0){
+      while(subOps.length < 3){
+        if(subOps.length < 3){
+          subOps.push(displayValue.shift());
+        } 
+      }
+    } else {
+      message.textContent = 'Done!';
     }
+    let num1 = parseFloat(subOps[0]);
+    let num2 = parseFloat(subOps[2]);
+    let exercise = subOps[1];
+
+      if(exercise === "+"){
+        output += add(num1,num2);
+      } else if (exercise === "-"){
+        output += subtract(num1, num2);
+      } else if (exercise === "/"){
+        output += divide(num1, num2);
+      } else if (exercise === "*"){
+        output += multiply(num1, num2);
+      }
+      console.log(output);
+      // operate();
+   
   }
+
+  window.addEventListener('keyup',(e)=>{
+
+    switch(e.keyCode){
+      case 49:
+        addOne();
+        break;
+      case 50:
+        addTwo();
+        break;
+      case 51:
+        addThree();
+        break;
+      case 52:
+        addFour();
+        break;
+      case 53:
+        addFive();
+        break;
+      case 54:
+        addSix();
+        break;
+      case 55:
+        addSeven();
+        break;
+      case 56:
+        if(!e.shiftKey){
+          addEight();
+        } else {
+          addMultiplicationSymbol();
+        }
+        break;
+      case 57:
+        addNine()
+        break;
+      case 48:
+        addZero();
+        break;
+      case 191:
+        addDivisonSymbol();
+        break;
+      case 187:
+        if(e.shiftKey){
+          addAdditionSymbol();
+        }
+        break;
+      case 189:
+        addSubtractionSymbol();
+        break;
+      case 56:
+          addMultiplicationSymbol();
+        break;
+      case 190:
+        addDecimal();
+        break;
+      case 8:
+        backspaceFunction();
+        break;
+      case 13:
+        operate();
+        break;
+      case 27:
+        clearInput();
+        break;
+      default:
+        //null
+        break;
+    }
+  });
+  

@@ -30,6 +30,7 @@ body{
 }
 
 .calculator{
+    margin-top: 2em;
     align-items: center;
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -98,8 +99,9 @@ div .operator{
 
 
 .message {
-    display: hidden;
-    /* max-height: 10px; */
+    display: block;
+    font-size: .8em;
+    min-height: 1.8em;
 }
 
 .footer{
