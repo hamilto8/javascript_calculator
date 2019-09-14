@@ -30,7 +30,7 @@ body{
 }
 
 .calculator{
-    margin-top: 2em;
+    /* margin-top: 2em; */
     align-items: center;
     display: grid;
     grid-template-rows: auto 1fr auto;

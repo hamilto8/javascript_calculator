@@ -420,7 +420,7 @@ function add(num1, num2){
 
   function findSquareRoot(){
     let lastVal = displayValue[displayValue.length-1];
-    if(parseFloat(lastVal) !== NaN){
+    if(parseFloat(displayValue[displayValue.length-1]) !== NaN && displayValue.length>0 && !checkChars(displayValue[displayValue.length-1])){
       displayValue.pop();
       let newVal = Math.sqrt(parseFloat(lastVal));
       if (newVal === parseInt(newVal)){
@@ -436,7 +436,7 @@ function add(num1, num2){
 
   function findPercent(){
     let lastVal = displayValue[displayValue.length-1];
-    if(parseFloat(lastVal) !== NaN){
+    if(parseFloat(displayValue[displayValue.length-1]) !== NaN && displayValue.length > 0 && !checkChars(displayValue[displayValue.length-1])){
       displayValue.pop();
       let newVal = parseFloat(lastVal)/100;
       if (newVal === parseInt(newVal)){
