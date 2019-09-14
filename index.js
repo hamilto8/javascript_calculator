@@ -11,6 +11,11 @@ const equalsButton = document.querySelector("div .equals");
 const subtractButton = document.querySelector("div .subtract");
 const multiplyButton = document.querySelector("div .multiply");
 const divideButton = document.querySelector("div .divide");
+const squareRootButton = document.querySelector(".squareRootButton");
+const percentButton = document.querySelector(".percent");
+const memoryClearButton = document.querySelector(".memoryClear");
+const memoryAddButton = document.querySelector(".memoryAdd");
+const memoryRemoveButton = document.querySelector(".memoryRemove");
 
 const one = document.querySelector(".one");
 const two = document.querySelector(".two");
@@ -26,8 +31,8 @@ const zero = document.querySelector(".zero");
 let num = 24;
 let specialChars = '*+-÷';
 let displayValue = [];
-let subOps = [];
 let output = 0;
+let memoryValue = 0;
 
 addButton.addEventListener('click', addAdditionSymbol);
 
@@ -39,6 +44,7 @@ function addAdditionSymbol(){
     displayValue[displayValue.length-1] = "+";
   }
   display.textContent = displayValue.join("");
+  length = displayValue.length-1;
 }
 
 subtractButton.addEventListener('click', addSubtractionSymbol);
@@ -81,8 +87,10 @@ function addDivisonSymbol(){
 clear.addEventListener('click', clearInput);
 
 function clearInput(){
+  length = 0;
   displayValue = [];
   output = 0;
+  subOps = [];
   message.textContent = '';
   display.textContent = displayValue.join("");
 }
@@ -114,7 +122,6 @@ one.addEventListener('click', addOne);
 
 function addOne(){
   let lastVal = displayValue[displayValue.length-1];
-
   if(displayValue[displayValue.length-1] === '0'){
     displayValue[displayValue.length-1] = '1';
   } else {
@@ -127,6 +134,7 @@ function addOne(){
   
   message.textContent = '';
   display.textContent = displayValue.join("");
+  length = displayValue.length-1;
 }
 
 two.addEventListener('click', addTwo);
@@ -265,7 +273,6 @@ nine.addEventListener('click', addNine);
 
 function addNine(){
   let lastVal = displayValue[displayValue.length-1];
-
   if(displayValue[displayValue.length-1] === '0'){
     displayValue[displayValue.length-1] = '9';
   } else {
@@ -278,6 +285,7 @@ function addNine(){
   
   message.textContent = '';
   display.textContent = displayValue.join("");
+  length = displayValue.length-1;
 }
 
 zero.addEventListener('click', addZero);
@@ -297,18 +305,24 @@ function addZero(){
 }
 
 special.addEventListener('click', ()=>{
-    message.textContent = "You have encountered a special message!";
+    message.textContent = "This calculator button is reserved for VIPS. Dress Nicely.";
 });
 
-equalsButton.addEventListener('click',()=>{
-  let lastVal = displayValue[displayValue.length-1];
-  const vals = [...displayValue];
+equalsButton.addEventListener('click', equalsButtonFunction);
+
+function equalsButtonFunction(){
+  length = displayValue.length;
+  count = 0;
   if(displayValue.length >= 3){
-    operate(vals);
+    if(divideByZero() === true){
+      message.textContent = 'Sir! Division by zero is most impolite.';
+    } else{
+        operate(displayValue);
+    }
   } else {
     message.textContent = 'Incorrect Input. Reconsider Your Mathematical Manners, Sir.';
   }
-});
+}
 
 backspace.addEventListener("click", backspaceFunction);
 
@@ -325,122 +339,214 @@ function backspaceFunction(){
 }
 
 function divideByZero(){
+  let state = false;
   for(let i = 0; i < displayValue.length-1; i++){
     if(displayValue[i] === '/' && displayValue[i+1] === '0'){
-      return true;
+      state = true;
+      break;
     }
   }
-  return false;
+  return state;
 }
 
 function add(num1, num2){
-    let sum = num1+num2;
-    return sum;
+    let sum = parseFloat(num1) + parseFloat(num2);
+    if(sum === parseInt(sum)){
+      return sum
+    } else {
+      return sum.toFixed(2);
+    }
   }
   
   function subtract(num1, num2){
     let sum = parseFloat(num1) - parseFloat(num2);
-    return sum;
+    if(sum === parseInt(sum)){
+      return sum;
+    } else {
+      return sum.toFixed(2);
+    }
   }
   
   function multiply(num1, num2){
-    let  product = num1*num2;
-    return product;
+    let  product = parseFloat(num1) * parseFloat(num2);
+    if(product === parseInt(product)){
+      return product;
+    } else {
+      return product.toFixed(2);
+    }
   }
   
   function divide(num1, num2){
-    let product = num1 / num2;
-    return product;
+    let product = parseFloat(num1) / parseFloat(num2);
+    if(product === parseInt(product)){
+      return product;
+    } else {
+      return product.toFixed(2);
+    }
+  }
+
+  function renderOutput(){
+    displayValue = [`${output}`];
+    display.textContent = displayValue.join("");
   }
 
   function operate(){
-    if(displayValue.length > 0){
-      while(subOps.length < 3){
-        if(subOps.length < 3){
-          subOps.push(displayValue.shift());
-        } 
+    for(let i = 0; i < displayValue.length; i++){
+      switch(displayValue[i]){
+        case '+':
+          output = add(displayValue[i-1], displayValue[i+1]);
+          displayValue[i+1] = output;
+          break;
+        case '-':
+            output = subtract(displayValue[i-1], displayValue[i+1]);
+            displayValue[i+1] = output;
+            break;
+        case '*':
+            output = multiply(displayValue[i-1], displayValue[i+1]);
+            displayValue[i+1] = output;
+            break;
+        case '/':
+            output = divide(displayValue[i-1], displayValue[i+1]);
+            displayValue[i+1] = output;
+            break;
+        default:
+          break;
       }
-    } else {
-      message.textContent = 'Done!';
     }
-    let num1 = parseFloat(subOps[0]);
-    let num2 = parseFloat(subOps[2]);
-    let exercise = subOps[1];
+    renderOutput(); 
+  }
 
-      if(exercise === "+"){
-        output += add(num1,num2);
-      } else if (exercise === "-"){
-        output += subtract(num1, num2);
-      } else if (exercise === "/"){
-        output += divide(num1, num2);
-      } else if (exercise === "*"){
-        output += multiply(num1, num2);
+  squareRootButton.addEventListener('click', findSquareRoot);
+
+  function findSquareRoot(){
+    let lastVal = displayValue[displayValue.length-1];
+    if(parseFloat(lastVal) !== NaN){
+      displayValue.pop();
+      let newVal = Math.sqrt(parseFloat(lastVal));
+      if (newVal === parseInt(newVal)){
+        displayValue.push(newVal);
+      } else {
+        displayValue.push(newVal.toFixed(2));
       }
-      console.log(output);
-      // operate();
-   
+      display.textContent = displayValue.join("");
+    }
+  }
+
+  percentButton.addEventListener('click', findPercent);
+
+  function findPercent(){
+    let lastVal = displayValue[displayValue.length-1];
+    if(parseFloat(lastVal) !== NaN){
+      displayValue.pop();
+      let newVal = parseFloat(lastVal)/100;
+      if (newVal === parseInt(newVal)){
+        displayValue.push(newVal);
+      } else {
+        displayValue.push(newVal.toFixed(2));
+      }
+      display.textContent = displayValue.join("");
+    }
+  }
+
+  memoryClearButton.addEventListener('click', clearMemory);
+
+  function clearMemory(){
+    memoryValue = 0;
+  }
+
+  memoryAddButton.addEventListener('click', addToMemory);
+
+  function addToMemory(){
+    let lastVal = displayValue[displayValue.length-1];
+    if(parseFloat(lastVal) !== NaN){
+      memoryValue += parseFloat(lastVal);
+    }
+  }
+
+  memoryRemoveButton.addEventListener('click', removeFromMemory);
+
+  function removeFromMemory(){
+    let lastVal = displayValue[displayValue.length-1];
+    if(parseFloat(lastVal) !== NaN){
+      memoryValue -= parseFloat(lastVal);
+    }
   }
 
   window.addEventListener('keyup',(e)=>{
     switch(e.keyCode){
       case 49:
         addOne();
+        one.style.backgroundColor = 'azure';
         break;
       case 50:
         addTwo();
+        two.style.backgroundColor = 'azure';
         break;
       case 51:
         addThree();
+        three.style.backgroundColor = 'azure';
         break;
       case 52:
         addFour();
+        four.style.backgroundColor = 'azure';
         break;
       case 53:
         addFive();
+        five.style.backgroundColor = 'azure';
         break;
       case 54:
         addSix();
+        six.style.backgroundColor = 'azure';
         break;
       case 55:
         addSeven();
+        seven.style.backgroundColor = 'azure';
         break;
       case 56:
         if(!e.shiftKey){
           addEight();
+          eight.style.backgroundColor = 'azure';
         } else {
+          multiplyButton.style.backgroundColor = 'rgb(255, 138, 138)';
           addMultiplicationSymbol();
         }
         break;
       case 57:
         addNine()
+        nine.style.backgroundColor = 'azure';
         break;
       case 48:
         addZero();
+        zero.style.backgroundColor = 'azure';
         break;
       case 191:
         addDivisonSymbol();
+        divideButton.style.backgroundColor = 'rgb(255, 138, 138)';
         break;
       case 187:
         if(e.shiftKey){
+          addButton.style.backgroundColor = 'rgb(255, 138, 138)';
           addAdditionSymbol();
         }
         break;
       case 189:
+        subtractButton.style.backgroundColor = 'rgb(255, 138, 138)';
         addSubtractionSymbol();
         break;
-      case 56:
-          addMultiplicationSymbol();
-        break;
       case 190:
+        decimal.style.backgroundColor = 'azure';
         addDecimal();
         break;
       case 8:
+        backspace.style.backgroundColor = 'azure';
         backspaceFunction();
         break;
       case 13:
-        operate();
+        equalsButton.style.backgroundColor = 'rgb(255, 138, 138)';
+        equalsButtonFunction();
         break;
       case 27:
+        clear.style.backgroundColor = 'rgb(255, 138, 138)';
         clearInput();
         break;
       default:
@@ -448,4 +554,70 @@ function add(num1, num2){
         break;
     }
   });
+
+  window.addEventListener('keydown',(e)=>{
+    switch(e.keyCode){
+      case 49:
+        one.style.backgroundColor = 'antiquewhite';
+        break;
+      case 50:
+        two.style.backgroundColor = 'antiquewhite';
+        break;
+      case 51:
+        three.style.backgroundColor = 'antiquewhite';
+        break;
+      case 52:
+        four.style.backgroundColor = 'antiquewhite';
+        break;
+      case 53:
+        five.style.backgroundColor = 'antiquewhite';
+        break;
+      case 54:
+        six.style.backgroundColor = 'antiquewhite';
+        break;
+      case 55:
+        seven.style.backgroundColor = 'antiquewhite';
+        break;
+      case 56:
+        if(!e.shiftKey){
+          eight.style.backgroundColor = 'antiquewhite';
+        } else {
+          multiplyButton.style.backgroundColor = 'antiquewhite';
+        }
+        break;
+      case 57:
+        nine.style.backgroundColor = 'antiquewhite';
+        break;
+      case 48:
+        zero.style.backgroundColor = 'antiquewhite';
+        break;
+      case 191:
+        divideButton.style.backgroundColor = 'antiquewhite';
+        break;
+      case 187:
+        if(e.shiftKey){
+          addButton.style.backgroundColor = 'antiquewhite';
+        }
+        break;
+      case 189:
+        subtractButton.style.backgroundColor = 'antiquewhite';
+        break;
+      case 190:
+        decimal.style.backgroundColor = 'antiquewhite';
+        break;
+      case 8:
+        backspace.style.backgroundColor = 'antiquewhite';
+        break;
+      case 13:
+        equalsButton.style.backgroundColor = 'antiquewhite';
+        break;
+      case 27:
+        clear.style.backgroundColor = 'antiquewhite';
+        break;
+      default:
+        //null
+        break;
+    }
+  });
+  
   
