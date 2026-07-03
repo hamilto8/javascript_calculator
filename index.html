@@ -1,107 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
-    <script src="https://kit.fontawesome.com/9c62c18c71.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Gayathri&display=swap" rel="stylesheet">
+    <!-- Meta tags for SEO and Social Sharing -->
+    <meta name="description" content="A beautiful, responsive, glassmorphic JavaScript calculator with PEMDAS operator precedence, full keyboard support, memory functions, and an interactive VIP mode.">
+    <meta name="keywords" content="calculator, javascript calculator, glassmorphism, responsive web design, PEMDAS, interactive UI">
+    <meta name="author" content="Michael Hamilton">
+    
+    <title>JavaScript Calculator</title>
+
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Inter:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for modern icons -->
+    <script src="https://kit.fontawesome.com/9c62c18c71.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="./images/calc.ico" type="image/x-icon">
     <link rel="stylesheet" href="./index.css">
-    <title>JavaScript Calculator</title>
+
+    <!-- Anti-Flash of Unstyled Content (FOUC) script for theme synchronization -->
+    <meta name="color-scheme" content="dark light">
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("calculator-theme");
+            if (savedTheme) {
+                document.documentElement.setAttribute("data-theme", savedTheme);
+            } else {
+                const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                document.documentElement.setAttribute("data-theme", systemPrefersDark ? "dark" : "light");
+            }
+        })();
+    </script>
 </head>
 <body>
-    <nav class="navbar">
-        <ul>
-            <li>
-                JavaScript Calculator
-            </li>
-        </ul>
-    </nav>
-    <div class="calculator">
-        <div class="container">
-                <div id="display"></div>
-            <div class="percent">
-                <i class="fas fa-percentage"></i>
+    <!-- Neon blur background decorations -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <span class="nav-title">
+                <i class="fas fa-calculator-alt logo-icon"></i>
+                JS Calculator
+            </span>
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light or dark theme" title="Toggle Theme">
+                <i class="fas fa-moon moon-icon"></i>
+                <i class="fas fa-sun sun-icon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="calculator-wrapper">
+        <div class="calculator-card">
+            <!-- Screen Display Area -->
+            <div class="display-container">
+                <div class="display-header">
+                    <span id="memory-indicator" class="memory-indicator" style="visibility: hidden;">M</span>
+                    <span id="expression-display" class="expression-display"></span>
+                </div>
+                <div id="display" class="main-display" aria-live="polite" aria-label="Display screen">0</div>
             </div>
-            <div class="squareRootButton">
-                 <i class="fas fa-square-root-alt"></i>
-            </div>
-            <div class="backspace">
-                <i class="fas fa-backspace"></i>
-            </div>
-            <div class="clear operator">
-                C
-            </div>
-            <div class="memoryClear">
-                MC
-            </div>
-            <div class="memoryAdd">
-                M+
-            </div>
-            <div class="memoryRemove">
-                M-
-            </div>
-            <div class="divide operator">
-                <i class="fas fa-divide"></i>
-            </div>
-            <div class="seven">
-                7
-            </div>
-            <div class="eight">
-                8
-            </div>
-            <div class="nine">
-                9
-            </div>
-            <div class="multiply operator">
-                <i class="fas fa-times"></i>
-            </div>
-            <div class="four">
-                4
-            </div>
-            <div class="five">
-                5
-            </div>
-            <div class="six">
-                6
-            </div>
-            <div class="subtract operator">
-                <i class="fas fa-minus"></i>
-            </div>
-            <div class="one">
-                1
-            </div>
-            <div class="two">
-                2
-            </div>
-            <div class="three">
-                3
-            </div>
-            <div class="add operator">
-                <i class="fas fa-plus"></i>
-            </div>
-            <div class="zero">
-                0
-            </div>
-            <div class="decimal">
-                .
-            </div>
-            <div class="special">
+
+            <!-- Buttons Grid Container -->
+            <div class="buttons-grid">
+                <!-- Row 1: Unary post-ops & Utilities -->
+                <button type="button" class="btn btn-utility percent" data-action="percent" aria-label="Percentage" title="Percentage">
+                    <i class="fas fa-percentage"></i>
+                </button>
+                <button type="button" class="btn btn-utility squareRootButton" data-action="sqrt" aria-label="Square root" title="Square root">
+                    <i class="fas fa-square-root-alt"></i>
+                </button>
+                <button type="button" class="btn btn-utility backspace" data-action="backspace" aria-label="Backspace" title="Backspace">
+                    <i class="fas fa-backspace"></i>
+                </button>
+                <button type="button" class="btn btn-clear clear operator" data-action="clear" aria-label="Clear" title="Clear (Escape)">
+                    C
+                </button>
+
+                <!-- Row 2: Memory actions -->
+                <button type="button" class="btn btn-memory memoryClear" data-action="mc" aria-label="Memory clear" title="Memory Clear">
+                    MC
+                </button>
+                <button type="button" class="btn btn-memory memoryAdd" data-action="m+" aria-label="Memory add" title="Memory Add">
+                    M+
+                </button>
+                <button type="button" class="btn btn-memory memoryRemove" data-action="m-" aria-label="Memory subtract" title="Memory Subtract">
+                    M-
+                </button>
+                <button type="button" class="btn btn-operator divide" data-val="/" aria-label="Divide" title="Divide (/)">
+                    <i class="fas fa-divide"></i>
+                </button>
+
+                <!-- Row 3: 7, 8, 9, Multiply -->
+                <button type="button" class="btn btn-digit seven" data-val="7" aria-label="7">7</button>
+                <button type="button" class="btn btn-digit eight" data-val="8" aria-label="8">8</button>
+                <button type="button" class="btn btn-digit nine" data-val="9" aria-label="9">9</button>
+                <button type="button" class="btn btn-operator multiply" data-val="*" aria-label="Multiply" title="Multiply (*)">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <!-- Row 4: 4, 5, 6, Subtract -->
+                <button type="button" class="btn btn-digit four" data-val="4" aria-label="4">4</button>
+                <button type="button" class="btn btn-digit five" data-val="5" aria-label="5">5</button>
+                <button type="button" class="btn btn-digit six" data-val="6" aria-label="6">6</button>
+                <button type="button" class="btn btn-operator subtract" data-val="-" aria-label="Subtract" title="Subtract (-)">
+                    <i class="fas fa-minus"></i>
+                </button>
+
+                <!-- Row 5: 1, 2, 3, Add -->
+                <button type="button" class="btn btn-digit one" data-val="1" aria-label="1">1</button>
+                <button type="button" class="btn btn-digit two" data-val="2" aria-label="2">2</button>
+                <button type="button" class="btn btn-digit three" data-val="3" aria-label="3">3</button>
+                <button type="button" class="btn btn-operator add" data-val="+" aria-label="Add" title="Add (+)">
+                    <i class="fas fa-plus"></i>
+                </button>
+
+                <!-- Row 6: 0, Decimal, VIP/MR, Equals -->
+                <button type="button" class="btn btn-digit zero" data-val="0" aria-label="0">0</button>
+                <button type="button" class="btn btn-digit decimal" data-val="." aria-label="Decimal point">.</button>
+                <button type="button" class="btn btn-special special" data-action="mr" aria-label="Memory recall / VIP mode" title="Memory Recall (Double Click for VIP Mode)">
                     <i class="fas fa-calculator"></i>
+                </button>
+                <button type="button" class="btn btn-equals equals operator" data-action="equals" aria-label="Equals" title="Equals (Enter)">
+                    <i class="fas fa-equals"></i>
+                </button>
             </div>
-            <div class="equals operator">
-                <i class="fas fa-equals"></i>
-            </div>
+
+            <!-- Screen output helper message card -->
+            <div class="message" role="status" aria-live="polite"></div>
         </div>
-        <div class="message">
-    
-        </div>
-        <div class="footer">
-            2019 Michael Hamilton
-        </div>
-    </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Michael Hamilton</p>
+    </footer>
     
     <script src="./index.js"></script>
 </body>
