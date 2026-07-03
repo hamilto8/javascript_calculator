@@ -471,7 +471,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (key === 'Enter' || key === '=') {
             return document.querySelector('button[data-action="equals"]');
         }
-        if (key === 'Escape') {
+        if (key === 'Escape' || key === 'c' || key === 'C' || key === 'Delete') {
             return document.querySelector('button[data-action="clear"]');
         }
         if (key === 'Backspace') {

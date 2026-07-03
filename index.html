@@ -42,10 +42,10 @@
 
     <header class="navbar">
         <div class="nav-container">
-            <span class="nav-title">
-                <i class="fas fa-calculator-alt logo-icon"></i>
+            <h1 class="nav-title">
+                <i class="fas fa-calculator logo-icon"></i>
                 JS Calculator
-            </span>
+            </h1>
             <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light or dark theme" title="Toggle Theme">
                 <i class="fas fa-moon moon-icon"></i>
                 <i class="fas fa-sun sun-icon"></i>
@@ -67,64 +67,64 @@
             <!-- Buttons Grid Container -->
             <div class="buttons-grid">
                 <!-- Row 1: Unary post-ops & Utilities -->
-                <button type="button" class="btn btn-utility percent" data-action="percent" aria-label="Percentage" title="Percentage">
+                <button id="btn-percent" type="button" class="btn btn-utility percent" data-action="percent" aria-label="Percentage" title="Percentage">
                     <i class="fas fa-percentage"></i>
                 </button>
-                <button type="button" class="btn btn-utility squareRootButton" data-action="sqrt" aria-label="Square root" title="Square root">
+                <button id="btn-sqrt" type="button" class="btn btn-utility squareRootButton" data-action="sqrt" aria-label="Square root" title="Square root">
                     <i class="fas fa-square-root-alt"></i>
                 </button>
-                <button type="button" class="btn btn-utility backspace" data-action="backspace" aria-label="Backspace" title="Backspace">
+                <button id="btn-backspace" type="button" class="btn btn-utility backspace" data-action="backspace" aria-label="Backspace" title="Backspace">
                     <i class="fas fa-backspace"></i>
                 </button>
-                <button type="button" class="btn btn-clear clear operator" data-action="clear" aria-label="Clear" title="Clear (Escape)">
+                <button id="btn-clear" type="button" class="btn btn-clear clear operator" data-action="clear" aria-label="Clear" title="Clear (Escape)">
                     C
                 </button>
 
                 <!-- Row 2: Memory actions -->
-                <button type="button" class="btn btn-memory memoryClear" data-action="mc" aria-label="Memory clear" title="Memory Clear">
+                <button id="btn-mc" type="button" class="btn btn-memory memoryClear" data-action="mc" aria-label="Memory clear" title="Memory Clear">
                     MC
                 </button>
-                <button type="button" class="btn btn-memory memoryAdd" data-action="m+" aria-label="Memory add" title="Memory Add">
+                <button id="btn-m-add" type="button" class="btn btn-memory memoryAdd" data-action="m+" aria-label="Memory add" title="Memory Add">
                     M+
                 </button>
-                <button type="button" class="btn btn-memory memoryRemove" data-action="m-" aria-label="Memory subtract" title="Memory Subtract">
+                <button id="btn-m-sub" type="button" class="btn btn-memory memoryRemove" data-action="m-" aria-label="Memory subtract" title="Memory Subtract">
                     M-
                 </button>
-                <button type="button" class="btn btn-operator divide" data-val="/" aria-label="Divide" title="Divide (/)">
+                <button id="btn-divide" type="button" class="btn btn-operator divide" data-val="/" aria-label="Divide" title="Divide (/)">
                     <i class="fas fa-divide"></i>
                 </button>
 
                 <!-- Row 3: 7, 8, 9, Multiply -->
-                <button type="button" class="btn btn-digit seven" data-val="7" aria-label="7">7</button>
-                <button type="button" class="btn btn-digit eight" data-val="8" aria-label="8">8</button>
-                <button type="button" class="btn btn-digit nine" data-val="9" aria-label="9">9</button>
-                <button type="button" class="btn btn-operator multiply" data-val="*" aria-label="Multiply" title="Multiply (*)">
+                <button id="btn-7" type="button" class="btn btn-digit seven" data-val="7" aria-label="7">7</button>
+                <button id="btn-8" type="button" class="btn btn-digit eight" data-val="8" aria-label="8">8</button>
+                <button id="btn-9" type="button" class="btn btn-digit nine" data-val="9" aria-label="9">9</button>
+                <button id="btn-multiply" type="button" class="btn btn-operator multiply" data-val="*" aria-label="Multiply" title="Multiply (*)">
                     <i class="fas fa-times"></i>
                 </button>
 
                 <!-- Row 4: 4, 5, 6, Subtract -->
-                <button type="button" class="btn btn-digit four" data-val="4" aria-label="4">4</button>
-                <button type="button" class="btn btn-digit five" data-val="5" aria-label="5">5</button>
-                <button type="button" class="btn btn-digit six" data-val="6" aria-label="6">6</button>
-                <button type="button" class="btn btn-operator subtract" data-val="-" aria-label="Subtract" title="Subtract (-)">
+                <button id="btn-4" type="button" class="btn btn-digit four" data-val="4" aria-label="4">4</button>
+                <button id="btn-5" type="button" class="btn btn-digit five" data-val="5" aria-label="5">5</button>
+                <button id="btn-6" type="button" class="btn btn-digit six" data-val="6" aria-label="6">6</button>
+                <button id="btn-subtract" type="button" class="btn btn-operator subtract" data-val="-" aria-label="Subtract" title="Subtract (-)">
                     <i class="fas fa-minus"></i>
                 </button>
 
                 <!-- Row 5: 1, 2, 3, Add -->
-                <button type="button" class="btn btn-digit one" data-val="1" aria-label="1">1</button>
-                <button type="button" class="btn btn-digit two" data-val="2" aria-label="2">2</button>
-                <button type="button" class="btn btn-digit three" data-val="3" aria-label="3">3</button>
-                <button type="button" class="btn btn-operator add" data-val="+" aria-label="Add" title="Add (+)">
+                <button id="btn-1" type="button" class="btn btn-digit one" data-val="1" aria-label="1">1</button>
+                <button id="btn-2" type="button" class="btn btn-digit two" data-val="2" aria-label="2">2</button>
+                <button id="btn-3" type="button" class="btn btn-digit three" data-val="3" aria-label="3">3</button>
+                <button id="btn-add" type="button" class="btn btn-operator add" data-val="+" aria-label="Add" title="Add (+)">
                     <i class="fas fa-plus"></i>
                 </button>
 
                 <!-- Row 6: 0, Decimal, VIP/MR, Equals -->
-                <button type="button" class="btn btn-digit zero" data-val="0" aria-label="0">0</button>
-                <button type="button" class="btn btn-digit decimal" data-val="." aria-label="Decimal point">.</button>
-                <button type="button" class="btn btn-special special" data-action="mr" aria-label="Memory recall / VIP mode" title="Memory Recall (Double Click for VIP Mode)">
+                <button id="btn-0" type="button" class="btn btn-digit zero" data-val="0" aria-label="0">0</button>
+                <button id="btn-decimal" type="button" class="btn btn-digit decimal" data-val="." aria-label="Decimal point">.</button>
+                <button id="btn-mr" type="button" class="btn btn-special special" data-action="mr" aria-label="Memory recall / VIP mode" title="Memory Recall (Double Click for VIP Mode)">
                     <i class="fas fa-calculator"></i>
                 </button>
-                <button type="button" class="btn btn-equals equals operator" data-action="equals" aria-label="Equals" title="Equals (Enter)">
+                <button id="btn-equals" type="button" class="btn btn-equals equals operator" data-action="equals" aria-label="Equals" title="Equals (Enter)">
                     <i class="fas fa-equals"></i>
                 </button>
             </div>

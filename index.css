@@ -284,6 +284,11 @@ body {
     transform: scale(1.05);
 }
 
+.theme-toggle-btn:focus-visible {
+    outline: 2px solid var(--display-text);
+    outline-offset: 2px;
+}
+
 .theme-toggle-btn:active {
     transform: scale(0.95);
 }
@@ -614,5 +619,16 @@ html[data-vip="true"] .calculator-card {
     
     .btn {
         font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .buttons-grid {
+        grid-gap: 0.4rem;
+    }
+    
+    .btn {
+        font-size: 0.95rem;
+        height: 42px;
     }
 }
