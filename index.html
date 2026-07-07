@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- Comprehensive Web Security Hardening Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=()">
+    
     <!-- Meta tags for SEO and Social Sharing -->
     <meta name="description" content="A beautiful, responsive, glassmorphic JavaScript calculator with PEMDAS operator precedence, full keyboard support, memory functions, and an interactive VIP mode.">
     <meta name="keywords" content="calculator, javascript calculator, glassmorphism, responsive web design, PEMDAS, interactive UI">
@@ -16,8 +23,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css?family=Inter:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome for modern icons -->
-    <script src="https://kit.fontawesome.com/9c62c18c71.js" crossorigin="anonymous"></script>
+    <!-- FontAwesome for modern icons with Subresource Integrity (SRI) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="shortcut icon" href="./images/calc.ico" type="image/x-icon">
     <link rel="stylesheet" href="./index.css">
 
@@ -25,7 +32,12 @@
     <meta name="color-scheme" content="dark light">
     <script>
         (function() {
-            const savedTheme = localStorage.getItem("calculator-theme");
+            let savedTheme = null;
+            try {
+                savedTheme = localStorage.getItem("calculator-theme");
+            } catch (e) {
+                // Gracefully ignore QuotaExceededError or SecurityError in private browsing / restricted mode
+            }
             if (savedTheme) {
                 document.documentElement.setAttribute("data-theme", savedTheme);
             } else {

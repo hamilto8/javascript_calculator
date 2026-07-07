@@ -82,7 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // MATHEMATICAL EXPRESSION PARSER (PEMDAS)
     // ==========================================
     function evaluateExpression(tokens) {
-        if (tokens.length === 0) return "0";
+        if (!Array.isArray(tokens) || tokens.length === 0) return "0";
+        if (tokens.length > 100) return "SyntaxError";
         
         let cleanTokens = [...tokens];
         
@@ -397,7 +398,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
         const newTheme = currentTheme === "dark" ? "light" : "dark";
         document.documentElement.setAttribute("data-theme", newTheme);
-        localStorage.setItem("calculator-theme", newTheme);
+        try {
+            localStorage.setItem("calculator-theme", newTheme);
+        } catch (e) {
+            // Gracefully ignore QuotaExceededError or SecurityError in private browsing / restricted mode
+        }
         showMessage(`Theme: ${newTheme.toUpperCase()}`);
     }
 
